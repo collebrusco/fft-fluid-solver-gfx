@@ -86,7 +86,7 @@ void StamFFT_FluidSolver::random_fill(float mag) {
     std::uniform_real_distribution<> dis(-mag, mag);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            u0[2*(i+j*n)] = dis(gen); v0[2*(i+j*n)] = dis(gen);
+            u0[(i+j*n)] = dis(gen); v0[(i+j*n)] = dis(gen);
         }
     }
 }
@@ -135,6 +135,25 @@ float StamFFT_FluidSolver::get_prev_solver_t() {
 float StamFFT_FluidSolver::get_prev_fft_t() {
     return t_us_ffts;
 }
+#include <iostream>
+using namespace std;
+static void printbuff(float* buff, int n) {
+    // for (int i = 0; i < n; i++) {
+    //     for (int j = 0; j < n; j++) {
+    //         cout << "(" << buff[(2*(i+j*n))] << ", " << buff[(2*(i+j*n))+1] << "), ";
+    //     }
+    //     cout << "\n";
+    // }
+    // cout << "\n\n\n";
+}
+
+static void printmean(float* buff, int n) {
+    // float sum = 0;
+    // for (int i = 0; i < n*n*2; i+=2) {
+    //     sum += buff[i] * buff[i] + buff[i+1] * buff[i+1];
+    // }
+    // LOG_DBG("avg:%E",sum);
+}
 
 #define TIMER_ACCUMULATION_START(grbg)  st = timer.read();
 #define TIMER_ACCUMULATION_END(grbg)    en = timer.read(); t_us_ffts += en-st;
@@ -157,7 +176,7 @@ float StamFFT_FluidSolver::get_prev_fft_t() {
 		(u0,v0):	cleared for new forces
 */
 #define BUFF_R(buf, i, j) buf[2*(i  +(j*N))]
-#define BUFF_I(buf, i, j) buf[2*(i+1+(j*N))]
+#define BUFF_I(buf, i, j) buf[(2*(i  +(j*N)))+1]
 
 void StamFFT_FluidSolver::stam_stable_solve(int const& N, 
                        float* const u, float* const v, 
@@ -202,6 +221,8 @@ void StamFFT_FluidSolver::stam_stable_solve(int const& N,
         }
     }
 
+    printbuff(u0, N);
+
     // transform to fourier domain
     TIMER_ACCUMULATION_START(); // debug code
     fftu->forward(); fftv->forward();           // SPATIAL -> FOURIER
@@ -234,24 +255,28 @@ void StamFFT_FluidSolver::stam_stable_solve(int const& N,
             (&(v0[2*(i + N*j)]))[1] = vi;
         }
     }
-
+    printbuff(u0, N);
     // inverse ffts back to spatial domain
     TIMER_ACCUMULATION_START(); // debug code
     fftu->inverse(); fftv->inverse();           // FOURIER -> SPATIAL
     TIMER_ACCUMULATION_END();   // debug code
+    printbuff(u0, N);
 
     // normalize (r2c then c2r tform multiplies all by n*n)
-    f = 1.0/(N*N);
+    f = 1.0/(N*N);// f = 1.0;
     for ( i=0 ; i<N ; i++ ) {
         for ( j=0 ; j<N ; j++ )
         { 
             u[i+N*j] = f*BUFF_R(u0, i, j); v[i+N*j] = f*BUFF_R(v0, i, j); 
         }
     }
+    printmean(u0, N);
 
     // clear force field
     memset(u0,0,sizeof(float)*N*N*2);
     memset(v0,0,sizeof(float)*N*N*2);
 
+
     t_us_solver = timer.stop();
+
 }

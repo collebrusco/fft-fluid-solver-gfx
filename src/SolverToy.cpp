@@ -79,7 +79,8 @@ void SolverToy::explode(int x0, int y0, int r, float force) {
 	}
 }
 
-
+#include <iostream>
+using namespace std;
 void SolverToy::run(void(*loopfunc)(float)) {
 	gl.init();
 	window.create("fluid solver toy", 1024, 1024);
@@ -134,7 +135,7 @@ void SolverToy::run(void(*loopfunc)(float)) {
 		}
 
 			// solver step
-		float dt = slowmo ? dtimer.stop_reset_start()/10. : dtimer.stop_reset_start();
+		float dt = slowmo ? dtimer.stop_reset_start()/10. : dtimer.stop_reset_start(); dt = 1./60.;
 		field.step(dt);
 		if (view!=1) field.solver.slow_fill_pixbuff();
 
@@ -161,8 +162,9 @@ void SolverToy::run(void(*loopfunc)(float)) {
 
 		this->userLoop(dt);
 		if (loopfunc) loopfunc(dt);
-
+		// while (dtimer.read() < 1.);
 		window.update();
+		// cin.get();
 	}
 
 	rendererA->destroy();
