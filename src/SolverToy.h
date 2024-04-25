@@ -4,12 +4,11 @@
 #include <stdint.h>
 #include <type_traits>
 #include <flgl/logger.h>
-#include "FFT_Solver2d.h"
 #include "Field.h"
 #include "FieldRenderer.h"
 #include "rgFieldRenderer.h"
 #include "vecFieldRenderer.h"
-#include "FFT_Solver2d.h"
+#include "FFT_Solver.h"
 
 // Entire fluid sim & gfx demo wrapped up into an object
 // usage:
@@ -20,7 +19,7 @@ class SolverToy {
 private:
 	// called every frame, override if you need/want extra functionality
 	virtual void userLoop(float dt);
-	FFT_Solver2d * fftu, * fftv;
+	FFT_Solver * fftu, * fftv;
 protected:
 	const size_t N;
 	Field field;
@@ -34,7 +33,7 @@ public:
 	// pass a null pointer to an FFT subclass 
     template <typename Solver_t>
     void set_fft_type(Solver_t * fft) {
-        static_assert(std::is_base_of<FFT_Solver2d, Solver_t>::value, 
+        static_assert(std::is_base_of<FFT_Solver, Solver_t>::value, 
                       "Must pass a ptr to an FFT_Solver2d derivative");
         delete fftu; delete fftv;
         fftu = new Solver_t(N, field.solver.fx_buffer());

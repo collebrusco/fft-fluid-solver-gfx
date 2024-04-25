@@ -2,7 +2,7 @@
 #define FFT_FLUID_SOLVER_H
 #include <cmath>
 #include "../lib/sw/Stopwatch.h"
-#include "FFT_Solver2d.h"
+#include "FFT_Solver.h"
 
 /*
     solver: https://www.dgp.toronto.edu/public_user/stam/reality/Research/pdf/jgt01.pdf
@@ -20,7 +20,7 @@ private:
     float t_us_solver;
     float t_us_ffts;
 
-    FFT_Solver2d * fftu, * fftv;
+    FFT_Solver * fftu, * fftv;
 
     void alloc_buffers();
     void free_buffers();
@@ -35,7 +35,7 @@ public:
     StamFFT_FluidSolver(int const& N);
     ~StamFFT_FluidSolver();
 
-    void use_ffts(FFT_Solver2d* fu, FFT_Solver2d* fv);
+    void use_ffts(FFT_Solver* fu, FFT_Solver* fv);
 
     void random_fill(float mag);
     void zero_field();

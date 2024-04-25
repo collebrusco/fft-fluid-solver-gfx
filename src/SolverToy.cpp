@@ -10,7 +10,6 @@
 #include "FieldRenderer.h"
 #include "rgFieldRenderer.h"
 #include "vecFieldRenderer.h"
-#include "SolverToy.h"
 LOG_MODULE(solvertoy);
 using namespace glm;
 

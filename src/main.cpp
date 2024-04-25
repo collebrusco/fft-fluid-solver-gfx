@@ -2,7 +2,7 @@
 #include <flgl/tools.h>
 #include <flgl/logger.h>
 #include "SolverToy.h"
-#include "FFT_Solver2d.h"
+#include "FFT_Solver.h"
 LOG_MODULE(testmain);
 using namespace glm;
 

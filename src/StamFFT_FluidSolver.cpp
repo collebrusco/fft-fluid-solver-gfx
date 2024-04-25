@@ -23,7 +23,7 @@ StamFFT_FluidSolver::~StamFFT_FluidSolver() {
     free_buffers();
 }
 
-void StamFFT_FluidSolver::use_ffts(FFT_Solver2d* fu, FFT_Solver2d* fv) {
+void StamFFT_FluidSolver::use_ffts(FFT_Solver* fu, FFT_Solver* fv) {
     fftu = fu; fftv = fv;
 }
 
