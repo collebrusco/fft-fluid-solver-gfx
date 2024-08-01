@@ -13,7 +13,8 @@
 I've been wanting to implement a 2d fluid sim like this for some [other projects](https://github.com/collebrusco/gunpowder) and of course the computational fluid dynamics rabbit hole is deep.       
 I found [this paper by Jos Stam (2001)](https://www.dgp.toronto.edu/public_user/stam/reality/Research/pdf/jgt01.pdf) that details a relatively simple FFT-based technique.   
 
-Here I've implemented it with [MIT's FFTW](https://www.fftw.org/) FFT library, rendered the fluid field and added some controls for playing with it.        
+Here I've implemented it with [MIT's FFTW](https://www.fftw.org/) FFT library, rendered the fluid field and added some controls for playing with it.      
+For a school project, a team and I implemented our own FFTs in CUDA! Check that [here](https://github.com/collebrusco/361C-term-project), if you have an NVIDIA GPU this makes the solver faster.     
 There are two renderers that you can switch between or overlay: one simply renders the x and y coords of each vector in the red and green components of color, and the other renders the vectors as lines.       
 The color renderer surprisingly has a very neat and fluid look to it, while the lines give you the traditional vector field rendering.
 
