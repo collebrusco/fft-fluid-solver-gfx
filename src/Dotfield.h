@@ -6,7 +6,7 @@
 #include "../lib/ecs/ECS.h"
 #include <stdlib.h>
 #include "Dot.h"
-#include "util/Stepper.h"
+#include "Stepper.h"
 
 // namespace std { template <> struct hash<glm::ivec2> {
 // std::size_t operator()(const glm::ivec2& obj) const {

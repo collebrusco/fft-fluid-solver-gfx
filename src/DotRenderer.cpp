@@ -1,6 +1,6 @@
 #include "DotRenderer.h"
 
-DotFieldRenderer::DotFieldRenderer(Dotfield const& f) : timer(ftime::MILLISECONDS), dotfield(f) {}
+DotFieldRenderer::DotFieldRenderer(Field const& ff, Dotfield const& f) : FieldRenderer(ff), timer(MILLISECONDS), dotfield(f) {}
 void DotFieldRenderer::init() {
 	quad = DefaultMeshes::tile<Vt_classic>();
 	df_shad = Shader::from_source("passthrough_vert", "tex");
@@ -13,7 +13,7 @@ void DotFieldRenderer::init() {
 void DotFieldRenderer::buffer_texture() {
 	timer.reset_start();
 	df_tex.bind();
-	df_tex.alloc(GL_RGB32F, field.x(), field.y(), GL_RGB, GL_UNSIGNED_BYTE, field.pixels());
+	df_tex.alloc(GL_RGB32F, dotfield.x(), dotfield.y(), GL_RGB, GL_UNSIGNED_BYTE, dotfield.pixels());
 	double stop = timer.stop_reset();
 	df_tex.unbind();
 	// LOG_DBG("updating took %3f ms", stop);

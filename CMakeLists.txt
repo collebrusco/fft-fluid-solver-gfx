@@ -10,7 +10,7 @@ include_directories(${PROJECT_SOURCE_DIR}/lib/flgl/inc)
 include_directories(${PROJECT_SOURCE_DIR}/lib/fftw/inc)
 include_directories(${PROJECT_SOURCE_DIR}/lib/sw)
 
-file(GLOB_RECURSE PROJECT_SOURCES "lib/sw/*.cpp" "src/*.cpp")
+file(GLOB_RECURSE PROJECT_SOURCES "lib/sw/*.cpp" "lib/ecs/*.cpp" "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 

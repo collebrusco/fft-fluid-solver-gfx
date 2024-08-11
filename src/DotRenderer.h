@@ -5,6 +5,7 @@
 #include <flgl/glm.h>
 #include <flgl/tools.h>
 #include "../lib/sw/Stopwatch.h"
+#include "Field.h"
 #include "Dotfield.h"
 #include "FieldRenderer.h"
 
@@ -16,7 +17,7 @@ struct DotFieldRenderer : public FieldRenderer {
 
 	Dotfield const& dotfield;
 
-	DotFieldRenderer(Dotfield const&);
+	DotFieldRenderer(Field const&, Dotfield const&);
 	void init() override final;
 	void buffer_texture();
 	void prepare() override final;

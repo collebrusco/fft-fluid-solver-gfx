@@ -16,7 +16,7 @@ Dotfield::~Dotfield(){delete [] _pixels;}
 
 void Dotfield::user_input() {
 	static auto const& mouse = window.mouse;
-	static auto const& df = *(this);
+	static auto & df = *(this);
 	static uint32_t brush_size = 5;
 	if (window.keyboard[GLFW_KEY_1].pressed)
 		brush_size = 1;
