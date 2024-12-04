@@ -115,13 +115,29 @@ void StamFFT_FluidSolver::slow_fill_pixbuff() {
 			if (buffer[g]<buffmin) buffmin = buffer[g];
 		}
 	}
-	for (int i = 0; i < n; i++) {
+	// for (int i = 0; i < n; i++) {
+	// 	for (int j = 0; j < n; j++) {
+	// 		int r = 2*(i+j*n);
+	// 		int g = 2*(i+j*n) + 1;
+	// 		buffer[r] -= buffmin;
+	// 		buffer[g] -= buffmin;
+    //         buffer[r] = log2(buffer[r]);
+    //         buffer[g] = log2(buffer[g]);
+    //         buffmax -= buffmin;
+    //         if (buffmax < 1.f) buffmax = 2.f;
+    //         buffer[r] *= (1.f / log2(buffmax));
+    //         buffer[g] *= (1.f / log2(buffmax));
+	// 	}
+	// }
+    for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			int r = 2*(i+j*n);
 			int g = 2*(i+j*n) + 1;
 			float imag = (1.f / ((buffmax-buffmin)==0.?1.f:(buffmax-buffmin)));
-			buffer[r] -= buffmin; buffer[r] *= imag;
-			buffer[g] -= buffmin; buffer[g] *= imag;
+			buffer[r] -= buffmin;
+			buffer[g] -= buffmin;
+			buffer[r] *= imag;
+			buffer[g] *= imag;
 		}
 	}
 }

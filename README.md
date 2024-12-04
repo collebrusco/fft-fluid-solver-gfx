@@ -8,7 +8,7 @@
 * Press 0 to zero velocity field
 * Press V to change view
 
-![screen shot](/screenshot_vec.png) ![screen shot](/screenshot_clr.png) 
+![gif](/img/product.gif)
 
 I've been wanting to implement a 2d fluid sim like this for some [other projects](https://github.com/collebrusco/gunpowder) and of course the computational fluid dynamics rabbit hole is deep.       
 I found [this paper by Jos Stam (2001)](https://www.dgp.toronto.edu/public_user/stam/reality/Research/pdf/jgt01.pdf) that details a relatively simple FFT-based technique.   
